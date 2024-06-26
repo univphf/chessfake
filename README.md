@@ -1,5 +1,5 @@
 # ChessFake
 
 <p align="center">
-<img src="https://i.imgur.com/6002Lu3.png" width="300">
+<img src="https://static.vecteezy.com/system/resources/previews/000/681/160/original/leader-success-chess-pieces.jpg" width="300">
 </p>
