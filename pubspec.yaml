@@ -1,0 +1,7 @@
+name: dartfish
+
+dependencies:
+  chess: ^0.8.1
+
+environment:
+  sdk: '^3.4.0'
