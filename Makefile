@@ -1,11 +1,11 @@
 build:
-	dart2native lib/main.dart -o bin/dartfish.exe
+	dart2native lib/main.dart -o bin/chessfake.exe
 
 build-linux:
-	dart2native lib/main.dart -o bin/dartfish
+	dart2native lib/main.dart -o bin/chessfake
 
 run:
 	dart run lib/main.dart
 
 run-exe:
-	bin\dartfish.exe
+	bin\chessfake.exe
