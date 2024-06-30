@@ -76,6 +76,14 @@ void run() {
         }
       }
     }
+
+    //recuperer ligne fen
+    if(cmdBot.contains('get fen')){
+      showboard=false;
+      print(bot.generate_fen());
+    }
+
+
     //mode autoplaying
     if (cmdBot.contains('autoplay')) {
       showboard = false;
@@ -93,6 +101,8 @@ void run() {
     //afficher l'aide uci
     if (cmdBot.contains('help')) {
       showboard = false;
+      print("commandes uci");
+      print("=================");
       print("""uci : Demander au moteur d'utiliser l'uci (interface universelle d'échecs,
                 ceci sera envoyé une fois comme première commande après le démarrage du programme
                 pour dire au moteur de passer en mode uci.""");
@@ -113,13 +123,15 @@ void run() {
                 position moves g2g3
                 position moves g2g3 c7c6
                 position fen rnbqkbnr/pp1ppppp/8/2p5/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2""");
+      print("quit : Quitter le moteur dartfish...");
+      print(""); //ligne vide
       print("commandes non uci");
       print("=================");
+      print("""get fen : Récuperer une chaine au format den de la postion de l'échiquer.""");
       print(
           "autoplay : demander au moteur de résoudre le jeux automatiquement jusqu'a la fin du jeu.");
       print("help : cette aide.");
       print("help fen : aide sur le format fen et la compréhension de sa syntaxe.");
-      print("quit : Quitter le moteur dartfish...");
     }
 
     //afficher l'aide sur le format FEN
