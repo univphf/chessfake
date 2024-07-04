@@ -14,7 +14,7 @@ void run() {
   BotHeader();
 
   //intitié le moteur
-  Engine ChessBot = new Engine();
+  Engine chessBot = new Engine();
 
   while (true) {
     var cmdBot;
@@ -33,7 +33,7 @@ void run() {
     //si cmd est go => calculer le mouvement pour la couleur en cours
     if (cmdBot.startsWith("go")) {
       showboard = true;
-      print("bestmove " + ChessBot.play());
+      print("bestmove " + chessBot.play());
     }
 
     //commencer un nouveau jeu.
@@ -57,7 +57,7 @@ void run() {
         int startIndex = cmdBot.indexOf(mvt) + mvt.length + 1;
         List moves = cmdBot.substring(startIndex).split(" ");
         for (String move in moves) {
-          ChessBot.moveLAN(move);
+          chessBot.moveLAN(move);
         }
       }
 
@@ -66,7 +66,7 @@ void run() {
         showboard = true;
         String fenstr =
             cmdBot.substring("position".length + 1 + "fen".length + 1);
-        ChessBot = Engine.fromFEN(fenstr);
+        chessBot = Engine.fromFEN(fenstr);
       }
 
       //si startpos => nouveau jeu
@@ -74,7 +74,7 @@ void run() {
         List info = cmdBot.split(" ");
         if (info[1] == 'startpos') {
           showboard = true;
-          ChessBot = Engine(); //nouveau moteur avec position de départ.
+          chessBot = Engine(); //nouveau moteur avec position de départ.
           ucinewgame = false;
         }
       }
@@ -83,19 +83,19 @@ void run() {
     //recuperer ligne fen
     if (cmdBot.contains('get fen')) {
       showboard = false;
-      print(ChessBot.generate_fen());
+      print(chessBot.generate_fen());
     }
 
     //mode autoplaying
     if (cmdBot.contains('autoplay')) {
       showboard = false;
-      while (!ChessBot.game_over) {
-        print('position: ' + ChessBot.fen);
-        print(ChessBot.ascii);
-        var moves = ChessBot.moves();
+      while (!chessBot.game_over) {
+        print('position: ' + chessBot.fen);
+        print(chessBot.ascii);
+        var moves = chessBot.moves();
         moves.shuffle();
         var move = moves[0];
-        ChessBot.move(move);
+        chessBot.move(move);
         print('move: ' + move);
       }
     }
@@ -191,7 +191,7 @@ rnbqkbnr/pp1ppppp/8/2p5/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2""");
 
     //afficher l'échiquier si autorisé.
     if (showboard) {
-      print(ChessBot.ascii);
+      print(chessBot.ascii);
     }
   } //fin while
 } //fin run
