@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import "engine.dart";
+import "commandes.dart" as cmd;
 
 var commands = <String, List>{
   "uci": ["id name Fake Chess", "id author Hervé TONDEUR", "uciok"],
@@ -11,7 +12,7 @@ bool showboard = true;
 String version = "1.0";
 
 void run() {
-  BotHeader();
+  cmd.BotHeader();
 
   //intitié le moteur
   Engine ChessBot = new Engine();
@@ -88,15 +89,22 @@ void run() {
 
     //mode autoplaying
     if (cmdBot.contains('autoplay')) {
-      showboard = false;
+      bool noshow=false;
+      if (cmdBot.contains('noshow')) {noshow=true;}
+      showboard = noshow;
       while (!ChessBot.game_over) {
         print('position: ' + ChessBot.fen);
-        print(ChessBot.ascii);
+        if (!noshow) print(ChessBot.ascii);
         var moves = ChessBot.moves();
         moves.shuffle();
         var move = moves[0];
         ChessBot.move(move);
-        print('move: ' + move);
+        print("move: ${ChessBot.move_number} (${ChessBot.turn.toString()}):" + move);
+        //reponse de fin de jeux
+        if (ChessBot.in_check) {print("Check!");}
+        if (ChessBot.in_checkmate) {print("${ChessBot.turn.toString()} Win!");}
+        if (ChessBot.in_draw) {print("Draw!");}
+        if (ChessBot.in_stalemate) {print("StaleMate");}
       }
     }
 
@@ -136,7 +144,7 @@ void run() {
       print(
           """get fen : Récuperer une chaine au format den de la postion de l'échiquer.""");
       print(
-          "autoplay : demander au moteur de résoudre le jeux automatiquement jusqu'a la fin du jeu.");
+          "autoplay [noshow] : demander au moteur de résoudre le jeux automatiquement jusqu'a la fin du jeu. option noshow n'affiche pas l'échiquer");
       print("help : cette aide.");
       print(
           "help fen : aide sur le format fen et la compréhension de sa syntaxe.");
@@ -192,17 +200,14 @@ rnbqkbnr/pp1ppppp/8/2p5/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2""");
     //afficher l'échiquier si autorisé.
     if (showboard) {
       print(ChessBot.ascii);
+      //tester le coup
+      if (ChessBot.in_check) {print("Check!");}
+      if (ChessBot.in_checkmate) {print("${ChessBot.turn.toString()} Win!");}
+      if (ChessBot.in_draw) {print("Draw!");}
+      if (ChessBot.in_stalemate) {print("StaleMate");}
     }
   } //fin while
 } //fin run
-
-/*****************
- * dessin de l'entête
- *****************/
-void BotHeader() {
-  print("Chess Fake Engine version $version");
-  print("TONDEUR Hervé");
-}
 
 void main() {
   run();
