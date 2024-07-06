@@ -1,7 +1,7 @@
 import "engine.dart";
 
 bool uciNewGame = true;
-String version = "1.0";
+String _version = "1.0";
 late Engine chessBot;
 
 String uci() {
@@ -67,6 +67,6 @@ void autoplay() {
 }
 
 void BotHeader() {
-  print("Chess Fake Engine version $version");
+  print("Chess Fake Engine version $_version");
   print("TONDEUR Hervé");
 }

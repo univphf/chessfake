@@ -51,7 +51,7 @@ void run() {
     // the last position sent to the engine, the GUI should have sent a "ucinewgame" inbetween.
 
     if (cmdBot.startsWith("position")) {
-      //si prosition moves .
+      //si prosition moves
       if (cmdBot.contains('moves')) {
         showboard = true;
         const mvt = "moves";
@@ -93,18 +93,15 @@ void run() {
       if (cmdBot.contains('noshow')) {noshow=true;}
       showboard = noshow;
       while (!ChessBot.game_over) {
-        print('position: ' + ChessBot.fen);
+        print('fen: ' + ChessBot.fen);
         if (!noshow) print(ChessBot.ascii);
         var moves = ChessBot.moves();
         moves.shuffle();
         var move = moves[0];
         ChessBot.move(move);
         print("move: ${ChessBot.move_number} (${ChessBot.turn.toString()}):" + move);
-        //reponse de fin de jeux
+        //tester mise en échec...
         if (ChessBot.in_check) {print("Check!");}
-        if (ChessBot.in_checkmate) {print("${ChessBot.turn.toString()} Win!");}
-        if (ChessBot.in_draw) {print("Draw!");}
-        if (ChessBot.in_stalemate) {print("StaleMate");}
       }
     }
 
@@ -201,7 +198,6 @@ rnbqkbnr/pp1ppppp/8/2p5/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2""");
     if (showboard) {
       print(ChessBot.ascii);
       //tester le coup
-      if (ChessBot.in_check) {print("Check!");}
       if (ChessBot.in_checkmate) {print("${ChessBot.turn.toString()} Win!");}
       if (ChessBot.in_draw) {print("Draw!");}
       if (ChessBot.in_stalemate) {print("StaleMate");}
